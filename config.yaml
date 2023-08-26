@@ -1,0 +1,11 @@
+credentials:
+  usernames:
+    #usuario de ejemplo
+    medico:
+      email: jgarcias@gmail.es
+      name: Dr. Jesus Garcia Serrano
+      password: $2b$12$opWzckJMbUD72687zpkWBu/NKZ5wHWGMH6p2O2cQ/bgmD3UDCgZHO #Contraseña codificada (def)
+cookie:
+  expiry_days: 0  #cambiar si se debe cambiar cada x dias
+  key: random_signature_key
+  name: random_cookie_name

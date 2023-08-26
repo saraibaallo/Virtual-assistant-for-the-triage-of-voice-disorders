@@ -1,0 +1,275 @@
+  * {
+    font-family:'Trebuchet MS' !important;
+    padding: 0;
+    margin:0;
+    list-style-position: inside;
+    font-size: 10pt;
+    scroll-behavior: smooth !important;
+  }
+
+  :root {
+    --color-boton: rgba(147, 180, 235, 0.626);
+    --color-boton-ini: rgba(145, 178, 235, 0.3);
+    --color-icono: rgb(145, 178, 235);
+    --color-paciente: rgba(189, 224, 255, 0.769);
+    --color-doctor: rgba(220, 220, 220, 0.302);
+    --color-sombra-mensajes: rgba(0, 0, 0, 0.2);
+    --color-sidebar: rgba(145, 178, 235, 0.05);
+  }
+  
+  html, body {
+    height: 100%;
+  }
+
+  .block-container {
+    padding: 0;
+  }
+
+  .css-1dp5vir {
+    background-image: linear-gradient(90deg, var(--color-icono), var(--color-paciente));
+  }
+
+  .css-9s5bis:hover {
+    background-color: var(--color-boton-ini);
+  }
+
+  .css-9s5bis:focus {
+    box-shadow: var(--color-boton-ini) 0px 0px 0px 0.2rem !important;
+
+  }
+
+  /*Sidebar*/
+  .css-1544g2n {
+    padding: 2rem 1.5rem;
+    background-color: var(--color-sidebar);
+  }
+
+  .css-1offfwp li { /*listas de sidebar*/
+    margin: 0.2em 0px 1em 0.2em;
+    padding: 0px 0px 0px 0.6em;
+    font-size: 1rem;
+  }
+
+  p, ol, ul, dl {
+    margin: 0px 0px 1rem;
+    padding: 0px;
+    font-size: 10pt;
+    font-weight: 400;
+  }
+
+  #text {
+    font-size: 10pt !important;
+  }
+
+  .intro {
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.15);
+    width: 100vw - calc(100vw-40pt);
+    padding: 15pt 20pt;
+    margin-bottom: 10pt;
+    font-weight: 600;
+    font-size: 20pt;
+  }
+
+  .seccion {
+    margin-top: -40pt;
+    margin-bottom: 10pt;
+    margin-left: 15pt;
+    font-weight: 600;
+    font-size: 15pt;
+    overflow: None;
+  }
+
+  .texto {
+    margin-left: 15pt;
+    position:relative;
+  }
+
+  .control {
+    margin-right: 15pt;
+    position:relative;
+  }
+
+  .texto_sombra {
+    text-shadow: 1px 1px 0.5px rgba(0, 0, 0, 1);
+  }
+
+  .doctor_inicial {
+    background-color: var(--color-doctor);
+    box-shadow: 2px 2px 2px 1px var(--color-sombra-mensajes);
+    align-self: flex-start;
+    border-radius: 15pt 15pt 15pt 0pt;
+    margin: 10pt 15pt 5pt 15pt;
+    padding: 10pt 15pt;
+    max-width: 80vw;
+    display:inline-block;
+    white-space: initial;
+  }
+
+  .doctor {
+    background-color: var(--color-doctor);
+    box-shadow: 2px 2px 2px 1px var(--color-sombra-mensajes);
+    align-self: flex-start;
+    border-radius: 15pt 15pt 15pt 0pt;
+    margin: -5pt 15pt 10pt 15pt;
+    padding: 10pt 15pt;
+    max-width: 42vw;
+    display:inline-block;
+    white-space: initial;
+  }
+
+  .paciente {
+    background-color: var(--color-paciente);
+    box-shadow: -2px 2px 2px 1px var(--color-sombra-mensajes);
+    align-self: flex-end;
+    border-radius: 15pt 15pt 0pt 15pt;
+    margin: -5pt 15pt 10pt 15pt;
+    padding: 10pt 15pt;
+    max-width: 42vw;
+    float: right;
+    white-space: initial;
+  }
+
+  .stTextArea {
+    border: 0pt;
+    color: black;
+    margin: 15pt !important;
+  }
+
+  textarea {
+    font-size: 10pt !important;
+    background-color: white !important;
+  }
+  
+  button[kind="primary"] {
+    align-self: center;
+    padding: 15pt;
+    width: 140px;
+    margin: 15pt calc(50vw - 60pt);
+    border: 0.25pt solid rgb(49, 51, 63, 0.2) !important;
+    border-radius: 3pt;
+    color: black !important;
+    background-color: var(--color-boton-ini) !important;
+    box-shadow: 0px 4px 2px 0px solid grey !important;
+    -webkit-box-shadow: 0px 4px 2px 0px grey !important;
+    -moz-box-shadow: 0px 4px 2px 0px grey !important;
+  }
+
+  button[kind="primary"]:hover {
+    border: 0.25pt solid rgb(49, 51, 63, 0.2) !important;
+    border-radius: 3pt;
+    color: black !important;
+    background-color: var(--color-boton) !important;
+    border-radius: 3pt;
+  }
+
+  button[kind="primary"]:active {
+    border-radius: 3pt;
+    transform: translateY(4px);
+    background-color: var(--color-boton) !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+  }
+
+  button[kind="primary"]:focus{
+    border: 0pt !important;
+    color: black !important;
+    background-color: var(--color-boton) !important;
+    border-radius: 3pt;
+  }
+
+  button[kind="secondary"] {
+    align-self: center;
+    padding: 5pt;
+    margin-top: 15px;
+    border: 0.25pt solid rgb(49, 51, 63, 0.2) !important;
+    border-radius: 3pt;
+    color: black !important;
+    background-color: var(--color-boton-ini) !important;
+  }
+
+  button[kind="secondary"]:hover {
+    border: 0.25pt solid rgb(49, 51, 63, 0.2) !important;
+    border-radius: 3pt;
+    color: black !important;
+    background-color: var(--color-boton) !important;
+    border-radius: 3pt;
+  }
+
+  button[kind="secondary"]:active {
+    border-radius: 3pt;
+    transform: translateY(4px);
+    background-color: var(--color-boton) !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+  }
+
+  button[kind="secondary"]:focus{
+    border: 0pt !important;
+    color: black !important;
+    background-color: var(--color-boton) !important;
+    border-radius: 3pt;
+  }
+
+  .div_semaforo {
+    margin-top: -10pt;
+    margin-left: 15pt;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15pt;
+  }
+
+  .texto_semaforo{
+    margin-left: 62px;
+    position: absolute;
+  }
+
+  .semaforo {
+    width: 52px;
+    height: 130px;
+    position:relative;
+    border-radius: 20px;    
+    padding: 0px 7px;
+    border: 1pt solid black;
+    background-color: lightgray;
+  }
+
+  .sano {
+    position:absolute;
+    width: 35px;
+    height: 35px;
+    top: 7px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.178);
+  }
+
+  .duda {
+    position:absolute;
+    width: 35px;
+    height: 35px;
+    top: 46px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.178);
+  }
+
+  .patologico {
+    position:absolute;
+    width: 35px;
+    height: 35px;
+    bottom: 7px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.178);
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    z-index: 9999;
+  }
