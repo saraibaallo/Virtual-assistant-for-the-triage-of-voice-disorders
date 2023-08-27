@@ -95,6 +95,8 @@ def radar(usuario,bbdd,DNI,nombre,apellido):
 
     plt.savefig(rutaRadar)
 
+    return rutaRadar
+
 #Obtener datos de la deteccion de patologia
 def detectar_patologia(url_path):
     try: 
@@ -164,10 +166,10 @@ def parte_patologia(col1,col2,url_path,bbdd,DNI,nombre,apellido):
         with col1:
             sound = "audio.wav"
             datos = measure2Pitch(sound, 75, 500, "Hertz") 
-            radar(datos,bbdd,DNI,nombre,apellido)
+            rutaRadar = radar(datos,bbdd,DNI,nombre,apellido)
             path = '<div class="texto">En la siguiente gráfica puede comparar sus resultados con los estándares, el nivel normal estaría dentro de la zona <span style="color:blue">azul</span>.</div>'
             st.markdown(path, unsafe_allow_html=True)
-            image = Image.open('Gráfica_radar.jpg')
+            image = Image.open(rutaRadar)
             st.image(image)
             st.session_state["hay_graficas"] = True
         

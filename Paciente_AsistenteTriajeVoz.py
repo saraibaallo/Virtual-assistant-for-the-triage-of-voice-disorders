@@ -349,8 +349,8 @@ if st.session_state["estado_boton"] == "Nueva consulta" and st.session_state["sa
                 elif len(respuesta.text)==0 and st.session_state["salir"] == "no":
                     Mensajes.message("Perdona, no te he entendido, ¿podrías repetírmelo?",False)
             
-            except (ConnectTimeout, ConnectionError, Exception):
-                txt = "Disculpa, está habiendo problemas para conectarse al programa que transcribe tus grabaciones. Inténtelo de nuevo, si ves que el problema persiste, comprueba la conexión a internet e pruebe más adelante."
+            except (ConnectTimeout, ConnectionError):
+                txt = "Disculpa, está habiendo problemas para conectarse al programa que transcribe tus grabaciones. Inténtelo de nuevo, si ves que el problema persiste, comprueba la conexión a internet y pruebe más adelante."
                 Mensajes.message(txt,False)
 
             mensajes = st.session_state["mensaje"]

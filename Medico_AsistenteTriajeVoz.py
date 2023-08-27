@@ -317,7 +317,7 @@ footer= '<div class="footer">Creado con <i>Streamit</i> por Sara Ibáñez Alloza
 st.markdown(footer,unsafe_allow_html=True)
 
 #MEDICO AUTORIZADO
-if authentication_status and st.session_state["cambiar_contraseña"] == False:
+if authentication_status:
     st.session_state["paciente_actual"] = None
     pantalla_inicial()
 

@@ -9,3 +9,6 @@ cookie:
   expiry_days: 0  #cambiar si se debe cambiar cada x dias
   key: random_signature_key
   name: random_cookie_name
+preauthorized:
+  emails:
+  - admin@gmail.com   #ejemplo
