@@ -6,6 +6,9 @@ import os
 import Historial
 import openai
 from openai.error import APIError, InvalidRequestError, OpenAIError, APIConnectionError
+import pygame
+from gtts import gTTS
+from gtts.tts import gTTSError
 import glob
 from PIL import Image
 import streamlit_scrollable_textbox as stx
@@ -36,6 +39,17 @@ with open('styles_medicos.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Métodos
+def txt_audio(texto):
+    pygame.init()   #iniciamos el reproductor de audio
+    try: 
+        tts = gTTS(text=texto, lang="es", slow=False)
+        tts.save(f'sound_gtts.wav')
+        sonido = pygame.mixer.Sound(f'sound_gtts.wav')
+        sonido.play()
+    except gTTSError:
+        msj = "No es posible generar el audio del mensaje, por ahora continuaremos la consulta con el texto."
+        st.warning(msj)
+
 def encriptar_fichero(ruta, texto_fichero):
     key = Historial.obtener_key()
     llave = Fernet(key)
@@ -218,6 +232,8 @@ def pantalla_inicial():
                             except (APIError, InvalidRequestError, OpenAIError, APIConnectionError, Exception):
                                 resumen_VHI = "No es posible generar el resumen del paciente, inténtelo más adelante.<br>Puede consultar sus ficheros en la derecha."
 
+                    if st.button("Reproducir 🔊",key="reproducir", type="primary"):
+                        txt_audio(resumen_VHI)
                     resumen = f'<div class="texto_medicos">{resumen_VHI}</div>'
 
                 elif fichero_general != None:
@@ -243,6 +259,8 @@ def pantalla_inicial():
                             except (APIError, InvalidRequestError, OpenAIError, APIConnectionError, Exception):
                                 resumen_general = "No es posible generar el resumen del paciente, inténtelo más adelante.<br>Puede consultar sus ficheros en la derecha."
 
+                        if st.button("Reproducir 🔊",key="reproducir", type="primary"):
+                            txt_audio(resumen_VHI)
                         resumen = f'<div class="texto_medicos">{resumen_general}</div>'
 
             else:
