@@ -147,7 +147,7 @@ if 'audio_bytes' not in st.session_state:
     st.session_state.audio_bytes = None
 
 if 'hay_graficas' not in st.session_state:
-    st.session_state["hay_graficas"] = False
+    st.session_state["hay_graficas"] = ""
 
 if 'prob_path' not in st.session_state:
     st.session_state["prob_path"] = None
@@ -202,15 +202,15 @@ if st.session_state["estado_boton"] == "Nueva consulta" and st.session_state["sa
         semaforo_div = f'<div class="div_semaforo">{semaforo}{semaforo_txt}</div>'
         st.markdown(semaforo_div, unsafe_allow_html=True)
                         
-        if st.session_state["hay_graficas"]:
+        if st.session_state["hay_graficas"] != "":
             if st.session_state["prob_path"] != None:
                 Patologia.mostrar_patologia(st.session_state["prob_path"], st.session_state["prob_health"])
             path = '<div class="texto">En la siguiente gráfica puede comparar sus resultados con los estándares, el nivel normal estaría dentro de la zona <span style="color:blue">azul</span>.</div>'
             st.markdown(path, unsafe_allow_html=True)
-            image = Image.open('Gráfica_radar.jpg')
+            image = Image.open(st.session_state["hay_graficas"])
             st.image(image)
-            path = '<div class="texto">**Jitter**: frecuencia <br>**Shimmer**: amplitud<br>**hnr**: ruido</div>'
-            st.markdown(path, unsafe_allow_html=True)
+            path_ayuda = '<div class="texto"><b>Jitter</b>: frecuencia <br><b>Shimmer</b>: amplitud<br><b>hnr</b>: ruido</div>'
+            st.markdown(path_ayuda, unsafe_allow_html=True)
         
     with col3:
         control = '<div class="seccion">Controles</div>'

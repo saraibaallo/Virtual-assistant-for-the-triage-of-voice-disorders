@@ -11,7 +11,6 @@ from gtts import gTTS
 from gtts.tts import gTTSError
 import glob
 from PIL import Image
-import streamlit_scrollable_textbox as stx
 from datetime import datetime
 from cryptography.fernet import Fernet
 from cryptography.fernet import InvalidToken
@@ -32,23 +31,78 @@ if 'titulo' not in st.session_state:
 if 'texto' not in st.session_state:
     st.session_state["texto"] = None
 
+if 'resumen_txt' not in st.session_state:
+    st.session_state["resumen_txt"] = None
+
+if 'error_gtts' not in st.session_state:
+    st.session_state["error_gtts"] = False
+
+if 'resumen_fichero' not in st.session_state:
+    st.session_state["resumen_fichero"] = ""
+
 st.set_page_config(page_title="Asistente voz | Área médicos", page_icon="favicon.png", layout="wide", initial_sidebar_state="collapsed", menu_items=None)
 
 # Cargo el fichero de estilos css
 with open('styles_medicos.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+def generar_audio(archivo, texto, carpeta, carpeta_paciente, DNI, nombre, apellido, tipo):
+    if tipo == "Resumen": ruta = archivo.split("\\")
+    else: ruta = archivo.split("\\")
+
+    fichero = ruta[2].split("_")
+    fecha = fichero[4]
+    ruta_audio = os.path.join(carpeta, carpeta_paciente, f"{tipo}_{DNI}_{nombre}_{apellido}_{fecha}.wav")
+
+    if not os.path.exists(ruta_audio):
+        with st.spinner("Se está generando el audio..."):
+            try: 
+                tts = gTTS(text=st.session_state["resumen_txt"], lang="es", slow=False)
+                tts.save(ruta_audio)
+                encriptar_audio(ruta_audio)
+                tts = gTTS(text=st.session_state["resumen_txt"], lang="es", slow=False)
+                tts.save(ruta_audio)
+                encriptar_audio(ruta_audio)
+                st.session_state["error_gtts"] = False
+            except gTTSError:
+                msj = "No es posible generar el audio del mensaje, por ahora continuaremos la consulta con el texto."
+                st.warning(msj)
+                st.session_state["error_gtts"] = True
+    return ruta_audio
+
 # Métodos
-def txt_audio(texto):
-    pygame.init()   #iniciamos el reproductor de audio
-    try: 
-        tts = gTTS(text=texto, lang="es", slow=False)
-        tts.save(f'sound_gtts.wav')
-        sonido = pygame.mixer.Sound(f'sound_gtts.wav')
+def reproducir(ruta_audio, boton):
+    desencriptar_audio(ruta_audio)
+    audio = "desencriptado.wav"
+    if boton == "reproduce":
+        pygame.mixer.pause()
+        sonido = pygame.mixer.Sound(audio)
         sonido.play()
-    except gTTSError:
-        msj = "No es posible generar el audio del mensaje, por ahora continuaremos la consulta con el texto."
-        st.warning(msj)
+        os.remove(audio)
+    
+    elif boton == "pausa":
+        pygame.mixer.pause()
+        os.remove(audio)
+
+def encriptar_audio(audio):
+    key = Historial.obtener_key()
+    llave = Fernet(key)
+    with open(audio, 'rb') as a:
+        audio_original = a.read()
+    audio_encriptado = llave.encrypt(audio_original)
+
+    with open(audio, 'wb') as a:
+        a.write(audio_encriptado)
+
+def desencriptar_audio(audio):
+    key = Historial.obtener_key()
+    llave = Fernet(key)
+    with open(audio, 'rb') as a:
+        audio_encriptado = a.read()
+    audio_desencriptado = llave.decrypt(audio_encriptado)
+    
+    with open("desencriptado.wav", 'wb') as a:
+        a.write(audio_desencriptado)
 
 def encriptar_fichero(ruta, texto_fichero):
     key = Historial.obtener_key()
@@ -69,7 +123,7 @@ def desencriptar_fichero(fichero):
         fichero_original = ""
     return fichero_original
 
-def busqueda_ficheros(archivo, tipo, dni, nombre, apellido, anonimo):
+def busqueda_ficheros(archivo, carpeta, carpeta_paciente, tipo, dni, nombre, apellido, anonimo):
     with open(archivo,encoding='utf-8') as f:
         fichero = archivo.split("_")
         fecha_txt = fichero[6].split(".")
@@ -99,6 +153,7 @@ def busqueda_ficheros(archivo, tipo, dni, nombre, apellido, anonimo):
                     elif nombre == "Anónimo":
                         st.session_state["titulo"] = f"{tipo} de {dni} a {fecha}"
                     else: st.session_state["titulo"] = f"{tipo} de {nombre} {apellido} a {fecha}"
+
 
 
 def pantalla_inicial():
@@ -156,7 +211,7 @@ def pantalla_inicial():
         ruta_carpeta = os.path.join(carpeta, carpeta_paciente)
         archivos_consulta = glob.glob(os.path.join(ruta_carpeta, f'*{"consulta"}*'))
         for fichero_consulta in archivos_consulta:
-            busqueda_ficheros(fichero_consulta, "Anónimo", DNI, nombre, apellido, True)
+            busqueda_ficheros(fichero_consulta, carpeta, carpeta_paciente, "Anónimo", DNI, nombre, apellido, True)
     
     elif st.session_state["paciente_actual"] != None:
         paciente = st.session_state["paciente_actual"]
@@ -176,20 +231,20 @@ def pantalla_inicial():
 
             archivos_general = glob.glob(os.path.join(ruta_carpeta, f'*{"voz"}*'))
             for fichero_general in archivos_general:
-                busqueda_ficheros(fichero_general, "General", DNI, nombre, apellido, False)
+                busqueda_ficheros(fichero_general, carpeta, carpeta_paciente, "General", DNI, nombre, apellido, False)
 
             archivos_VHI = glob.glob(os.path.join(ruta_carpeta, f'*{"VHI"}*'))
             for fichero_VHI in archivos_VHI:
                 if "resumen" not in fichero_VHI:
-                    busqueda_ficheros(fichero_VHI, "VHI-30", DNI, nombre, apellido, False)
+                    busqueda_ficheros(fichero_VHI, carpeta, carpeta_paciente, "VHI-30", DNI, nombre, apellido, False)
 
             archivos_consulta = glob.glob(os.path.join(ruta_carpeta, f'*{"consulta"}*'))
             for fichero_consulta in archivos_consulta:
-                busqueda_ficheros(fichero_consulta, "Consulta", DNI, nombre, apellido, False)
+                busqueda_ficheros(fichero_consulta, carpeta, carpeta_paciente, "Consulta", DNI, nombre, apellido, False)
 
             graficas_radar = glob.glob(os.path.join(ruta_carpeta, f'*{"radar"}*'))
             for radar in graficas_radar:
-                busqueda_ficheros(radar, "Gráfica radar", DNI, nombre, apellido, False)
+                busqueda_ficheros(radar, carpeta, carpeta_paciente, "Gráfica radar", DNI, nombre, apellido, False)
 
         with resumen:
             #Buscamos el archivo general más reciente
@@ -200,10 +255,12 @@ def pantalla_inicial():
                 #Buscamos el archivo VHI más reciente
                 if archivos_VHI:   #el paciente ha podido acabar la consulta completando el anterior cuestionario pero no este
                     fichero_VHI_ultimo = max(archivos_VHI, key=os.path.getmtime)
+                    st.session_state["resumen_fichero"] = fichero_VHI_ultimo
                     fecha_modificacion = datetime.fromtimestamp(os.path.getmtime(fichero_VHI_ultimo))
                     
                     if "resumen" in fichero_VHI_ultimo:
-                        resumen_VHI = desencriptar_fichero(fichero_VHI_ultimo)
+                        st.session_state["resumen_txt"] = desencriptar_fichero(fichero_VHI_ultimo)
+
                     else:
                         txt_fichero_VHI = desencriptar_fichero(fichero_VHI_ultimo)
 
@@ -224,21 +281,19 @@ def pantalla_inicial():
                                 {"role": "system", "content": "Eres un doctor especializado en otorrinolaringología que va a resumir de forma redactada (separando las tres partes) el estado del paciente de una prueba VHI-30."},
                                 {"role": "user", "content": prompt}],
                                 max_tokens = 700)
-                                resumen_VHI = response['choices'][0]['message']['content']
+                                st.session_state["resumen_txt"] = response['choices'][0]['message']['content']
 
                                 resumen_VHI_ultimo = fichero_VHI_ultimo.replace(".txt", "_resumen.txt")
-                                encriptar_fichero(resumen_VHI_ultimo, resumen_VHI.encode())
+                                encriptar_fichero(resumen_VHI_ultimo, st.session_state["resumen_txt"].encode())
 
                             except (APIError, InvalidRequestError, OpenAIError, APIConnectionError, Exception):
-                                resumen_VHI = "No es posible generar el resumen del paciente, inténtelo más adelante.<br>Puede consultar sus ficheros en la derecha."
-
-                    if st.button("Reproducir 🔊",key="reproducir", type="primary"):
-                        txt_audio(resumen_VHI)
-                    resumen = f'<div class="texto_medicos">{resumen_VHI}</div>'
+                                st.session_state["resumen_txt"] = "No es posible generar el resumen del paciente, inténtelo más adelante.<br>Puede consultar sus ficheros en la derecha."
 
                 elif fichero_general != None:
+                    st.session_state["resumen_fichero"] = fichero_general
+
                     if "resumen" in fichero_general:
-                        resumen_general = desencriptar_fichero(fichero_general)
+                        st.session_state["resumen_txt"] = desencriptar_fichero(fichero_general)
                     else:
                         with st.spinner('Generando resumen del paciente...'):
                             try:
@@ -250,25 +305,35 @@ def pantalla_inicial():
                                 {"role": "system", "content": "Eres un doctor especializado en otorrinolaringología que va a resumir una consulta."},
                                 {"role": "user", "content": prompt}],
                                 max_tokens = 500)
-                                resumen_general = response['choices'][0]['message']['content']
+                                st.session_state["resumen_txt"] = response['choices'][0]['message']['content']
 
                                 resumen_general_ultimo = fichero_general.replace(".txt", "_resumen.txt")
-                                with open(resumen_general_ultimo, 'w',encoding='utf-8') as f:
-                                    f.write(resumen_general)
+                                encriptar_fichero(resumen_general_ultimo, st.session_state["resumen_txt"].encode())
                                 
                             except (APIError, InvalidRequestError, OpenAIError, APIConnectionError, Exception):
-                                resumen_general = "No es posible generar el resumen del paciente, inténtelo más adelante.<br>Puede consultar sus ficheros en la derecha."
-
-                        if st.button("Reproducir 🔊",key="reproducir", type="primary"):
-                            txt_audio(resumen_VHI)
-                        resumen = f'<div class="texto_medicos">{resumen_general}</div>'
-
+                                st.session_state["resumen_txt"] = "No es posible generar el resumen del paciente, inténtelo más adelante.<br>Puede consultar sus ficheros en la derecha."
+                        
             else:
                 txt = f'<div class="texto_medicos">{"El paciente no ha llegado a rellenar todos los datos de ningún cuestionario."}</div>'
                 st.markdown(txt, unsafe_allow_html=True)
-                resumen = ""
+                st.session_state["resumen_txt"] = ""
 
-            st.markdown(resumen, unsafe_allow_html=True)
+            if st.session_state["resumen_txt"] != "":
+                aviso_controles = '<div class="texto_medicos"><i>Debajo del texto se encuentran los controles para reproducir y pausar el texto.</i></div>'
+                st.markdown(aviso_controles, unsafe_allow_html=True)
+                resumen = f'<div class="texto_medicos">{st.session_state["resumen_txt"]}</div>'
+                st.markdown(resumen, unsafe_allow_html=True)
+
+                ruta_audio = generar_audio(st.session_state["resumen_fichero"], st.session_state["resumen_txt"], carpeta, carpeta_paciente, DNI, nombre, apellido, "Resumen")
+
+                if st.session_state["error_gtts"] == False:
+                    espacio1, play, silenciar, espacio2 = st.columns([1,1,1,1], gap="medium")
+                    with play:
+                        if st.button("Reproducir 🔊" ,key="reproduce", type="secondary"):
+                            reproducir(ruta_audio, "reproduce")
+                    with silenciar:
+                        if st.button("Silenciar 🔇" ,key="para", type="secondary"):
+                            reproducir(ruta_audio, "pausa")
             
             scroll='''
                     <style>
@@ -283,7 +348,7 @@ def pantalla_inicial():
         
             if st.session_state["pantalla_inicial"] == False:
                 mostrar_fichero(st.session_state["fichero"],st.session_state["titulo"],st.session_state["texto"])   
-
+                
 def mostrar_fichero(fichero,titulo,texto):
     vacio, boton = st.columns([10,1], gap="medium")
     with vacio:
@@ -337,6 +402,7 @@ st.markdown(footer,unsafe_allow_html=True)
 #MEDICO AUTORIZADO
 if authentication_status:
     st.session_state["paciente_actual"] = None
+    pygame.init()   #iniciamos el reproductor de audio
     pantalla_inicial()
 
 elif (authentication_status == False):

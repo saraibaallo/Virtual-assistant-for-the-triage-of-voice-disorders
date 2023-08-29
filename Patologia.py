@@ -171,7 +171,9 @@ def parte_patologia(col1,col2,url_path,bbdd,DNI,nombre,apellido):
             st.markdown(path, unsafe_allow_html=True)
             image = Image.open(rutaRadar)
             st.image(image)
-            st.session_state["hay_graficas"] = True
+            st.session_state["hay_graficas"] = rutaRadar
+            path_ayuda = '<div class="texto"><b>Jitter</b>: frecuencia <br><b>Shimmer</b>: amplitud<br><b>hnr</b>: ruido</div>'
+            st.markdown(path_ayuda, unsafe_allow_html=True)
         
             #Obtener datos de patología
             with col2:
@@ -191,7 +193,7 @@ def parte_patologia(col1,col2,url_path,bbdd,DNI,nombre,apellido):
                     Mensajes.message(txt,False)
                     txt = "Se va a volver a realizar la prueba para ver si se llega a alguna conclusión, ¿te parece  bien? si no quieres volver a hacerla di 'salir' o pulsa el botón para terminar."
                     st.session_state["repetir_prueba"] = True
-                    st.session_state["hay_graficas"] = False #Se elimina para mostrar la de la nueva grabación
+                    st.session_state["hay_graficas"] = "" #Se elimina para mostrar la de la nueva grabación
                 else:
                     st.session_state["repetir_prueba"] = False
                     txt = "Lo siento, no es posible conectarse con el servicio encargado de devolver la existencia de patología."
