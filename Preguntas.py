@@ -7,7 +7,13 @@ import re
 
 def validar_dni(dni):
     patron_dni = r'^\d{8}[a-hj-np-tv-zA-HJ-NP-TV-Z]$'
-    if re.match(patron_dni, dni):return True
+    if re.match(patron_dni, dni):
+        numero = int(dni[:8])
+        letra = dni[8]
+        resto = numero % 23
+        letra_asignada = 'TRWAGMYFPDXBNJZSQVHLCKE'[resto]
+        if letra_asignada == letra: return True
+        else: return False
     else: return False
 
 def vhi_pregunta(value, opciones,pregunta,txt,signos):
