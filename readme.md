@@ -2,7 +2,7 @@
 _This program is only available in Spanish._
 
 ### Patient’s access
-In the patient's section you are going to have an oral (using microphone and speaker) and written (the conversation is going to be showed as messages in the screen, also the patient could write some of them) conversation.
+In the patient's section you are going to have an oral (using microphone and speaker) and written (the conversation is going to be displayed as messages on the screen, also the patient could write some of them) conversation.
 
 The conversation is divided into three parts:
 - **Patient consultation**. Patient tells his/her symptoms and the assitant recommend him/her some treatment.
