@@ -1,9 +1,21 @@
 # Description (English)
 _This program is only available in Spanish._
 
-**Patient’s part**
+### Patient’s access
+In the patient's section you can have a conversation with the assistant in an oral way (using microphone and speaker) as well as written (the conversation is going to be showed as messages in the screen, also the patient could write some of them).
 
-**Doctor’s part**
+The conversation is divided in three parts:
+- **Patient consultation**. Patient tells his/her symptoms and the assitant recommend him/her some treatment.
+- **Medical history**. Assistant asks two questionnaires (VHI-30 and another one). Patient's answers will be save so that the doctor can read them in a future.
+- **Pathology**. To detect the existence of a voice disorder.
+
+### Doctor’s access
+It is a private area, you need credentials to access to it (check "Usage" section). In this area the doctor can check the history of all his/her patients.
+The doctor can read, for any patient:
+- A summary, that can be reproduced, of the last answers to the questionnaires and the last symptoms communicated.
+- Complete transcription of conversations.
+- All the questionnaires answered.
+- All the symptoms communicated.
 
 # Descripción (Español)
 
@@ -17,22 +29,22 @@ texto puntuales por parte del paciente).
 La conversación se divide en tres partes:
 
 - **Consulta**. El paciente comunica los síntomas y el asistente le ofrece recomendaciones para tratarlos.
-
 - **Historial**. El asistente lleva a cabo dos cuestionatios (VHI-30 y otro adicional). Las respuestas del paciente se guardan para que el médico pueda consultarlas cuando atienda al paciente.
-
 - **Patología**. Se detecta la posible existencia de patolgía en la voz.
 
 ### Acceso a médicos
-Es un acceso privado en el que los médicos, con su identificación, pueden acceder al historial de sus pacientes. Concretamente de cada uno de ellos ven:
-- Un resumen (escrito y con opción de reproducible) de las respuestas de la última vez que hizo los cuestionarios y también sus últimos síntomas comunicados.
+Es un acceso privado en el que los médicos, con su identificación (para la creación de identificación válida ver apartado "uso"), pueden acceder al historial de sus pacientes. Concretamente de cada uno de ellos ven:
+- Un resumen (escrito y con opción de reproducible) de las respuestas de la última vez que hizo los cuestionarios y sus síntomas comunicados.
 - Las transcripciones completas de todas las conversaciones que ha tenido con el asistente.
 - Los cuestionarios que ha respondido.
 - Los síntomas que ha comunicado.
 ![image](https://github.com/saraibaallo/Virtual-assistant-for-the-triage-of-voice-disorders/assets/115147932/62f67da1-8e98-4fa1-9c55-af8b45f06310)
 
 
+
+
 # Installation (English)
-Make sure that all the required libraries are installed, for that:
+Make sure that all the required libraries are installed by executing the following command:
 ```
 pip install -r requirements.txt
 ```
@@ -60,9 +72,12 @@ Importante. En algunos momentos el programa usa ChatGPT, por lo que necesitas te
   4.2.  Ponga como valor la clave dada por OpenAI.
 6.	Dé a aceptar.
 
+
+
+
 # Usage (Uso)
 ### Patients' access (Acceso a pacientes)
-For running the Patient’s part _(Para lanzar la parte del paciente)_:
+For running the Patient’s section _(Para lanzar la parte del paciente)_:
 ```
 python -m streamlit run Paciente_AsistenteTriajeVoz.py
 ```
@@ -72,12 +87,12 @@ El uso es guiado durante toda la consulta, pero además, hay instrucciones gener
 <img width="543" alt="image" src="https://github.com/saraibaallo/Virtual-assistant-for-the-triage-of-voice-disorders/assets/115147932/2c84a7c4-da39-46cf-8e68-008a40a3cb1c">
 
 ### Doctor's access (Acceso a médicos)
-For running the Doctor’s part _(Para lanzar la parte del médico)_:
+For running the Doctor’s section _(Para lanzar la parte del médico)_:
 ```
 python -m streamlit run Medico_AsistenteTriajeVoz.py
 ```
 
-Do you need to keep your credentials in "config.yaml". Go to "usernames" in "credentials" an complete your information as follow:
+Ensure that your credentials are stored in "config.yaml". Go to "usernames" in "credentials" and complete your information as follows:
 
 ```
 credentials:
