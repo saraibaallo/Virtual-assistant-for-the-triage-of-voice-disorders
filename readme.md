@@ -2,18 +2,18 @@
 _This program is only available in Spanish._
 
 ### Patient’s access
-In the patient's section you are going to have an oral (using microphone and speaker) and written (the conversation is going to be displayed as messages on the screen, also the patient could write some of them) conversation.
+In the patient's section you are going to have an oral (using microphone and speaker) and written (the conversation is going to be displayed as messages on the screen, also the patient could type some of them) interaction.
 
 The conversation is divided into three parts:
-- **Patient consultation**. Patient tells his/her symptoms and the assitant recommends him/her some treatment.
-- **Medical history**. Assistant asks two questionnaires (VHI-30 and another one). Patient's answers will be saved so that the doctor can read them in a future.
+- **Patient consultation**. The patient tells their symptoms and the assitant recommends them some treatment.
+- **Medical history**. The assistant asks two questionnaires (VHI-30 and another one). The patient's answers will be saved so that the doctor can read them in a future.
 - **Pathology**. To detect the existence of a voice disorder.
 
 ### Doctor’s access
-This is a private area, you need credentials to access to it (check "Usage" section). In this area, the doctor can check the history of all his/her patients.
+This is a private area, you will need credentials in order to gain access to it (check "Usage" section). In this area, the doctor can check the history of all their patients.
 The doctor can read, for each patient:
 - A summary, that can be reproduced, of the last answers to the questionnaires and the most recent symptoms reported.
-- Complete transcripts of conversations.
+- Complete transcripts of the conversations.
 - All the answered questionnaires.
 - All the reported symptoms.
 
@@ -44,12 +44,12 @@ Es un acceso privado en el que los médicos, con su identificación (para la cre
 
 
 # Installation (English)
-Make sure that all the required libraries are installed by executing the following command:
+Please make sure that all the required libraries are installed by executing the following command:
 ```
 pip install -r requirements.txt
 ```
 
-Important. At some moments this program uses ChatGPT, you need to have a valid key given by openAI saved as _“OPENAI_API_KEY”_ in _“Environments variables”_ of your computer.
+Important. At certain moments this program uses ChatGPT, you need to have a valid key given by openAI saved as _“OPENAI_API_KEY”_ in _“Environments variables”_ of your computer.
 1.	Environment variables
 2.	System properties
 3.	System variables
