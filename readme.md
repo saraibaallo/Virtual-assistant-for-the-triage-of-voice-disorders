@@ -4,18 +4,18 @@ _This program is only available in Spanish._
 ### Patient’s access
 In the patient's section you can have a conversation with the assistant in an oral way (using microphone and speaker) as well as written (the conversation is going to be showed as messages in the screen, also the patient could write some of them).
 
-The conversation is divided in three parts:
+The conversation is divided into three parts:
 - **Patient consultation**. Patient tells his/her symptoms and the assitant recommend him/her some treatment.
-- **Medical history**. Assistant asks two questionnaires (VHI-30 and another one). Patient's answers will be save so that the doctor can read them in a future.
+- **Medical history**. Assistant asks two questionnaires (VHI-30 and another one). Patient's answers will be saved so that the doctor can read them in a future.
 - **Pathology**. To detect the existence of a voice disorder.
 
 ### Doctor’s access
-It is a private area, you need credentials to access to it (check "Usage" section). In this area the doctor can check the history of all his/her patients.
-The doctor can read, for any patient:
-- A summary, that can be reproduced, of the last answers to the questionnaires and the last symptoms communicated.
-- Complete transcription of conversations.
-- All the questionnaires answered.
-- All the symptoms communicated.
+This is a private area, you need credentials to access to it (check "Usage" section). In this area, the doctor can check the history of all his/her patients.
+The doctor can read, for each patient:
+- A summary, that can be reproduced, of the last answers to the questionnaires and the most recent symptoms reported.
+- Complete transcripts of conversations.
+- All the answered questionnaires.
+- All the reported symptoms.
 
 # Descripción (Español)
 
