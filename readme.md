@@ -5,7 +5,7 @@ _This program is only available in Spanish._
 In the patient's section you are going to have an oral (using microphone and speaker) and written (the conversation is going to be displayed as messages on the screen, also the patient could write some of them) conversation.
 
 The conversation is divided into three parts:
-- **Patient consultation**. Patient tells his/her symptoms and the assitant recommend him/her some treatment.
+- **Patient consultation**. Patient tells his/her symptoms and the assitant recommends him/her some treatment.
 - **Medical history**. Assistant asks two questionnaires (VHI-30 and another one). Patient's answers will be saved so that the doctor can read them in a future.
 - **Pathology**. To detect the existence of a voice disorder.
 
