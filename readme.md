@@ -54,9 +54,11 @@ Important. At certain moments this program uses ChatGPT, you need to have a vali
 2.	System properties
 3.	System variables
 4.	New…
-  4.1.	As name “OPENAI_API_KEY”
-  4.2.	As value the one given by OpenAI
-5.	Click “Accept”
+   
+      4.1.	As name “OPENAI_API_KEY”
+  
+      4.2.	As value the one given by OpenAI
+6.	Click “Accept”
 
 # Instalación (Español)
 Asegúrate de que las librerías requeridas están instaladas, para ello:
@@ -68,8 +70,11 @@ Importante. En algunos momentos el programa usa ChatGPT, por lo que necesitas te
 2.	Abajo hay un botón de “Propiedades del sistema”, clique.
 3.	Ahí verás un apartado llamado “Variables del sistema”.
 4.	Clique en “Nueva…”.
-  4.1.	Ponga como nombre “OPENAI_API_KEY”.
-  4.2.  Ponga como valor la clave dada por OpenAI.
+   
+      4.1.	Ponga como nombre “OPENAI_API_KEY”.
+
+      4.2.  Ponga como valor la clave dada por OpenAI.
+  	
 6.	Dé a aceptar.
 
 
@@ -84,7 +89,7 @@ python -m streamlit run Paciente_AsistenteTriajeVoz.py
 
 El uso es guiado durante toda la consulta, pero además, hay instrucciones generales fijas en el desplegable de la izquierda.
 
-<img width="543" alt="image" src="https://github.com/saraibaallo/Virtual-assistant-for-the-triage-of-voice-disorders/assets/115147932/2c84a7c4-da39-46cf-8e68-008a40a3cb1c">
+![image](https://github.com/saraibaallo/Virtual-assistant-for-the-triage-of-voice-disorders/assets/115147932/2300b209-2831-4c3b-845a-4d7079592036)
 
 ### Doctor's access (Acceso a médicos)
 For running the Doctor’s section _(Para lanzar la parte del médico)_:
