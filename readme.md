@@ -44,6 +44,12 @@ Es un acceso privado en el que los médicos, con su identificación (para la cre
 
 
 # Installation (English)
+First of all look at your Python version:
+```
+python --version
+```
+This code is created with Python 3.10.11.
+
 Please make sure that all the required libraries are installed by executing the following command:
 ```
 pip install -r requirements.txt
@@ -61,6 +67,11 @@ Important. At certain moments this program uses ChatGPT, you need to have a vali
 6.	Click “Accept”
 
 # Instalación (Español)
+Este código ha sido escrito con la versión de Pyhton 3.10.11, comprueba que tienes una versión compatible:
+```
+python --version
+```
+
 Asegúrate de que las librerías requeridas están instaladas, para ello:
 ```
 pip install -r requirements.txt
