@@ -50,7 +50,7 @@ pip install -r requirements.txt
 ```
 
 Important. At certain moments this program uses ChatGPT, you need to have a valid key given by openAI saved as _“OPENAI_API_KEY”_ in _“Environments variables”_ of your computer.
-1.	Environment variables
+1.	Go to "Environment variables"
 2.	System properties
 3.	System variables
 4.	New…
